@@ -27,14 +27,16 @@ namespace UnitBrains.Player
             }
 
             int currentTemp = GetTemperature(); // сохранение текущей температуры
-            IncreaseTemperature();
-
+            
             for (int i = 0; i < currentTemp + 1; i++) // увеличение снарядов с каждым выстрелом
             {
                 var projectile = CreateProjectile(forTarget);
                 AddProjectileToList(projectile, intoList);
                 Debug.Log("выстрел " + i + "снаряд " + currentTemp);
             }
+
+            IncreaseTemperature(); // нагрев после выстрела
+
             ///////////////////////////////////////
         }
 
