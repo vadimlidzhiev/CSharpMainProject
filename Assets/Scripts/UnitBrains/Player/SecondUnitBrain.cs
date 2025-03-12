@@ -21,6 +21,11 @@ namespace UnitBrains.Player
         private int _unitId = _unitCounter++;
         private const int _maximumSelectionTargets = 3;
 
+        private List<Vector2Int> _outOfRangeTargets = new(); // поле, со списком недосягаемых целей
+        private static int _unitCounter = 0; 
+        private int _unitId = _unitCounter++;
+        private const int _maximumSelectionTargets = 3;
+
         protected override void GenerateProjectiles(Vector2Int forTarget, List<BaseProjectile> intoList)
         {
             float overheatTemperature = OverheatTemperature;
@@ -78,17 +83,17 @@ namespace UnitBrains.Player
 
             int indexTarget = _unitId % _maximumSelectionTargets; // Определяем, какую именно по счёту ближайшую цель атакует юнит (0, 1, 2)
 
-            if (indexTarget >= allTargets.Count) // Если целей больше в списке, выбираем последнюю
+            if (indexTarget >= allTargets.Count) // Если целей больше, выбираем последнюю в списке
             {
                 indexTarget = allTargets.Count - 1;
             }
 
             Vector2Int selectedTarget = allTargets[indexTarget]; // выбираем цель
 
-            (IsTargetInRange(selectedTarget)
-                ? result //если цель в радиусе актаки, то добавляем в список целей
-                : _outOfRangeTargets //иначе в список недосягаемых
-                ).Add(selectedTarget);
+            (IsTargetInRange(selectedTarget) // Если цель в радиусе актаки, 
+                ? result // То добавляем в список доступных целей
+                : _outOfRangeTargets // Иначе в список недосягаемых
+            ).Add(selectedTarget);
 
             return result;
         }
