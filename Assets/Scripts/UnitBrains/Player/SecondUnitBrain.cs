@@ -21,11 +21,6 @@ namespace UnitBrains.Player
         private int _unitId = _unitCounter++;
         private const int _maximumSelectionTargets = 3;
 
-        private List<Vector2Int> _outOfRangeTargets = new(); // поле, со списком недосягаемых целей
-        private static int _unitCounter = 0; 
-        private int _unitId = _unitCounter++;
-        private const int _maximumSelectionTargets = 3;
-
         protected override void GenerateProjectiles(Vector2Int forTarget, List<BaseProjectile> intoList)
         {
             float overheatTemperature = OverheatTemperature;
